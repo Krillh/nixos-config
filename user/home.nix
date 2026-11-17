@@ -1,0 +1,17 @@
+{ config, pkgs, ... }:
+
+{
+  home.username = "merfoo";
+  home.homeDirectory = "/home/merfoo";
+
+  imports = [
+    ./browser.nix
+    ./shell.nix
+    ./text-editor.nix
+    ./wayland.nix
+  ];
+  
+
+  programs.home-manager.enable = true;
+  home.stateVersion = "24.11";
+}

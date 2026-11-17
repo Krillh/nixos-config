@@ -2,7 +2,7 @@
   description = "Desktop";
 
   inputs = {
-    nixpkgs.url = "github.com:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,12 +20,13 @@
       system = "x86_64-linux";
       modules = [
         disko.nixosModules.disko
-        ./disko.nix
-        ./configuration.nix
+        ./system/disko.nix
+        ./hosts/vm.nix
+        ./system/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
-          home-manager.useUserPkgs = ture;
-          home-manager.users.merfoo = import ./home.nix;
+          home-manager.useUserPkgs = true;
+          home-manager.users.merfoo = import ./user/home.nix;
         }
       ];
     };

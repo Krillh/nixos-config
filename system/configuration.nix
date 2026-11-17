@@ -6,19 +6,17 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./system-goods.nix
+    ./system-packages.nix
   ];
 
   # Bootloader -- UEFI
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
+  networking.networkmanager.enable = true;
   networking.hostName = "nixos";
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # VirtualBox Integration
-  virtualisation.virtualBox.guest.enable = true;
 
   security.polkit.enable = true;
   xdg.portal = {
@@ -39,11 +37,7 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ]; # "You gotta use Flakes, bro!" -me
       auto-optimise-store = true;
-    };
-    gc = { # Keep a nice and clean store, no?
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+      fsync-store-paths = true; # Protect against partial store writes (apparently, important!)
     };
   };
 
