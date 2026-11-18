@@ -6,6 +6,7 @@
 
   imports = [
     ./browser.nix
+    ./password-manager.nix
     ./shell.nix
     ./text-editor.nix
     ./wayland.nix
