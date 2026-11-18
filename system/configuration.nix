@@ -33,7 +33,10 @@
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
-  }; 
+  };
+
+  # Graphics
+  hardware.graphics.enable = true;
 
   # Nix stuff
   nix = {

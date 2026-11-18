@@ -20,7 +20,7 @@
 
   # Cross-platform File Sharing (crucially, including passwords)
   services.syncthing = {
-    enable = true;
+    enable = false;
     # ? may want to move to another .nix file later since it's not just for KeePassXC
 
     # Maintains this config as the single source of truth.
