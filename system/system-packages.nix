@@ -9,6 +9,7 @@
     description = "merfoo";
     extraGroups = [ "networkmanager" "wheel" ];
     initialPassword = "merfoo"; # Make sure to change via passwd
+    shell = pkgs.fish;
   };
 
   fonts.packages = with pkgs; [
@@ -32,6 +33,6 @@
 
   programs.sway = {
     enable = true;
-    package = null;v
+    package = null;
   };
 }

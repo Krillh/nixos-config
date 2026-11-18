@@ -7,7 +7,7 @@
   # Cross-platform Password Manager
   programs.keepassxc = {
     enable = true;
-    settings = {
+    settings.General = {
       LastDir = "${config.home.homeDirectory}/passwords";
       OpenPreviousDatabasesOnStartup = true;
       LastOpenedDatabases = "${config.home.homeDirectory}/passwords/vault.kdbx";
@@ -25,10 +25,10 @@
 
     # Maintains this config as the single source of truth.
     overrideDevices = true;
-    overriceFolders = true;
+    overrideFolders = true;
 
     settings = {
-      devices."andriod-phone".id = ""; # TODO: set up syncthing on android
+      devices."android-phone".id = ""; # TODO: set up syncthing on android
 
       folders = {
         "passwords" = { # Sync ~/passwords folder with the KeePassXC database

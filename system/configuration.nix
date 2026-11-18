@@ -7,6 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     ./system-packages.nix
+    ./terminal.nix
   ];
 
   # Bootloader -- UEFI

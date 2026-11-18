@@ -1,25 +1,36 @@
 { config, pkgs, ... }:
 
 {
+  fonts.packages = with pkgs; [
+    nerd-fonts.bigblue-terminal
+  ];
 
-  # Keep TTY1 as a login/recovery terminal
+    # ---- Keep TTY1 as a login/recovery terminal ---- # (AI-generated because I don't get it yet ;n;)
+  # Restore the normal getty template suppressed by Kmscon.
+  systemd.suppressedSystemUnits = lib.mkForce [ ];
+  # Let Kmscon own automatic console activation on the other TTYs.
+  systemd.services."getty@".aliases = lib.mkForce [ ];
+  # Disable Kmscon specifically on TTY1.
   systemd.services."kmsconvt@tty1".enable = false;
+  # Apply these settings to the existing normal-login template.
   systemd.services."getty@tty1" = {
     enable = true;
+    overrideStrategy = "asDropin";
     wantedBy = [ "getty.target" ];
   };
+  # Start the normal TTY1 login instead of the default Kmscon TTY1.
+  systemd.targets.getty.wants = lib.mkForce [
+    "getty@tty1.service"
+  ];
 
   # Using kmscon for tty2 through tty6
   services.kmscon = {
     enable = true;
-    hwRender = true;       # Use GPU acceleration (OpenGL ES / Mesa)
+    config.hwaccel = true;       # Use GPU acceleration (OpenGL ES / Mesa)
     useXkbConfig = true;   # Inherit keyboard layouts from services.xserver.xkb
-    fonts = [
-      {
-        name = "BigBlueTermPlus Nerd Font";
-        package = pkgs.nerd-fonts.bigblue-terminal;
-      }
-    ];
+
+    config.font-name = "BigBlueTermPlus Nerd Font";
+
     extraConfig = ''
       font-size=14
       palette=solarized
@@ -32,7 +43,7 @@
     after = [ "getty.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      type = "OneShot";
+      type = "oneshot";
       ExecStart = "${pkgs.kbd}/bin/chvt 2";
     };
   };
