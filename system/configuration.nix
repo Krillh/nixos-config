@@ -17,6 +17,8 @@
   networking.networkmanager.enable = true;
   networking.hostName = "nixos";
   i18n.defaultLocale = "en_US.UTF-8";
+  networking.firewall.allowedTCPPorts = [ 22000 ];       # * Open for Syncthing sharing
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ]; # * Open for Syncthing sharing
 
   security.polkit.enable = true;
   xdg.portal = {
