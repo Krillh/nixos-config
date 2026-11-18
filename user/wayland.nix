@@ -7,6 +7,7 @@
 
   home.packages = with pkgs; [
     foot
+    kitty rio # should make a choice between these
     fuzzel
   ];
 
