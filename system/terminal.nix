@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   fonts.packages = with pkgs; [
@@ -26,16 +26,15 @@
   # Using kmscon for tty2 through tty6
   services.kmscon = {
     enable = true;
-    config.hwaccel = true;       # Use GPU acceleration (OpenGL ES / Mesa)
     useXkbConfig = true;   # Inherit keyboard layouts from services.xserver.xkb
 
-    config.font-name = "BigBlueTermPlus Nerd Font";
-
-    extraConfig = ''
-      font-size=14
-      palette=solarized
-      sb-size=10000
-    '';
+    config = {
+      font-name = "BigBlueTermPlus Nerd Font";
+      font-size = "14";
+      palette = "solarized";
+      sb-size = "10000";
+      hwaccel = true;
+    };
   };
 
   systemd.services.switch-to-tty2 = {
@@ -43,7 +42,7 @@
     after = [ "getty.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      type = "oneshot";
+      Type = "oneshot";
       ExecStart = "${pkgs.kbd}/bin/chvt 2";
     };
   };

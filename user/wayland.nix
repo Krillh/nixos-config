@@ -24,7 +24,7 @@
       ];
 
       keybindings = pkgs.lib.mkOptionDefault {
-        "${modifier}+Shift+q+p" = "exit" # Alt + QUIT + PLEASE. lol xD
+        "Mod1+Shift+q" = "exit" # Alt + QUIT
         # "${modifier}+b" = "exec chromium"
       };
     };
