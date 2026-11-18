@@ -14,6 +14,8 @@
 
   # Epic rebuild script with automatic /nix and root btrfs snapshots first ^u^
   xdg.configFile."fish/functions/rebuild.fish".source = ./scripts/rebuild.fish;
+  # sway in getty != sway in kmscon, unfortunately :(
+  xdg.configFile."fish/functions/sway.fish".source = ./scripts/sway.fish;
 
   programs.fish = {
     enable = true;
