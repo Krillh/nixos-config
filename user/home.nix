@@ -11,6 +11,10 @@
     ./text-editor.nix
     ./wayland.nix
   ];
+
+  home.packages = with pkgs; [
+    spotatui
+  ];
   
 
   programs.home-manager.enable = true;
