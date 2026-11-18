@@ -2,12 +2,26 @@
 
 {
 
-  home.packages = with pkgs; [
-    keepassxc
-  ];
+  home.packages = with pkgs; [ ];
 
+  # Cross-platform Password Manager
+  programs.keepassxc = {
+    enable = true;
+    settings = {
+      LastDir = "${config.home.homeDirectory}/passwords";
+      OpenPreviousDatabasesOnStartup = true;
+      LastOpenedDatabases = "${config.home.homeDirectory}/passwords/vault.kdbx";
+
+      AutoSaveAfterEveryChange = true;
+      AutoReloadOnChange = true;
+      UseAtomicSaves = true;
+    };
+  };
+
+  # Cross-platform File Sharing (crucially, including passwords)
   services.syncthing = {
     enable = true;
+    # ? may want to move to another .nix file later since it's not just for KeePassXC
 
     # Maintains this config as the single source of truth.
     overrideDevices = true;
